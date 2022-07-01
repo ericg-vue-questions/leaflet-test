@@ -21,7 +21,7 @@ export default {
 
   data() {
     return{
-      center: [37,7749, -122,4194]
+      center: [37.7749, -122.4194]
     }
   },
 
