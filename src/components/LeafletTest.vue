@@ -7,6 +7,8 @@
 <script>
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+// import * from 'leaflet-polylinedecorator';
+
 //
 // obtain a mapbox token from https://account.mapbox.com/access-tokens/
 // and then create token.js in ./src/components with the following content:
@@ -21,13 +23,14 @@ export default {
 
   data() {
     return{
-      center: [37.7749, -122.4194]
+      center: [37.781814, -122.404740]
     }
   },
 
   methods: {
     setupLeafletMap: function () {
       const mapDiv = L.map("mapContainer").setView(this.center, 13);
+
       L.tileLayer(
         `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${token}`,
         {
@@ -37,6 +40,23 @@ export default {
           accessToken: `${token}`,
         }
       ).addTo(mapDiv);
+
+      var polylinePoints = [
+        [37.781814, -122.404740],
+        [37.80012, -122.404827]
+      ];
+
+      var polyline = L.polyline(polylinePoints, {color: 'red'}).addTo(mapDiv);
+      var decorator = L.polylineDecorator(polyline, {
+                        patterns: [
+                          // defines a pattern of 10px-wide dashes, repeated every 20px on the line
+                          {offset: 0, repeat: 20, symbol: L.Symbol.dash({pixelSize: 10})}
+                        ]
+                      }).addTo(mapDiv);
+
+
+      console.log( polyline );
+      console.log( decorator );
     },
   },
 
