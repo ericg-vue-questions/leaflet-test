@@ -7,7 +7,6 @@
 <script>
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-// import * from 'leaflet-polylinedecorator';
 
 //
 // obtain a mapbox token from https://account.mapbox.com/access-tokens/
@@ -53,6 +52,7 @@ export default {
                           {offset: 0, repeat: 20, symbol: L.Symbol.dash({pixelSize: 10})}
                         ]
                       }).addTo(mapDiv);
+
 
 
       console.log( polyline );
