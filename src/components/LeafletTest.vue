@@ -7,6 +7,7 @@
 <script>
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import {thecloud} from './TheCloud';
 
 //
 // obtain a mapbox token from https://account.mapbox.com/access-tokens/
@@ -40,10 +41,10 @@ export default {
         }
       ).addTo(mapDiv);
 
-      var polylinePoints = [
-        [37.781814, -122.404740],
-        [37.80012, -122.404827]
-      ];
+      const from = [37.781814, -122.404740];
+      const to = [37.80012, -122.404827];
+
+      var polylinePoints = [ from, to ];
 
       var polyline = L.polyline(polylinePoints, {color: 'red'}).addTo(mapDiv);
       var decorator = L.polylineDecorator(polyline, {
@@ -53,7 +54,16 @@ export default {
                         ]
                       }).addTo(mapDiv);
 
+      const size = 20;
 
+      const cloudIcon = L.divIcon({
+        html: thecloud,
+        className: 'my-custom-icons',
+        iconSize: [size, size],
+        iconAnchor: [size/2, size/2]
+      })
+
+      L.marker( from, { icon: cloudIcon} ).addTo( mapDiv );
 
       console.log( polyline );
       console.log( decorator );
@@ -70,5 +80,11 @@ export default {
   #mapContainer {
     width: 500px;
     height: 500px;
+  }
+</style>
+
+<style>
+  .my-custom-icons {
+    background-color: red;
   }
 </style>
