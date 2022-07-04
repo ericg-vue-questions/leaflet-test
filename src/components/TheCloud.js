@@ -2,8 +2,6 @@ const thecloud = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    version="1.1"
    viewBox="94 160 200 199.54211"
-   width="200pt"
-   height="199.54211pt"
    id="svg117"
    sodipodi:docname="TheCloud.svg"
    inkscape:version="1.2 (dc2aeda, 2022-05-15)"

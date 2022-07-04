@@ -54,7 +54,7 @@ export default {
                         ]
                       }).addTo(mapDiv);
 
-      const size = 20;
+      const size = 50;
 
       const cloudIcon = L.divIcon({
         html: thecloud,
