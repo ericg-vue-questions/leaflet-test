@@ -25,7 +25,7 @@ export default {
     return{
       center: [37.781814, -122.404740],
       cloudSvg: require('./TheCloud.svg'),
-      cloudSrc: require('./TheCloud.txt')
+      //cloudSrc: require('./TheCloud.txt')
     }
   },
 
