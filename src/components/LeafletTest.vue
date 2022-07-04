@@ -7,7 +7,7 @@
 <script>
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import {thecloud} from './TheCloud';
+// import {thecloud} from './TheCloud';
 
 //
 // obtain a mapbox token from https://account.mapbox.com/access-tokens/
@@ -25,7 +25,7 @@ export default {
     return{
       center: [37.781814, -122.404740],
       cloudSvg: require('./TheCloud.svg'),
-      //cloudSrc: require('./TheCloud.txt')
+      cloudSrc: require('./TheCloud.txt')
     }
   },
 
@@ -58,10 +58,11 @@ export default {
 
       const size = 50;
 
-      console.log( "icon", this.cloudSvg);
+      console.log( "icon svg", this.cloudSvg);
+      console.log( "icon src", this.cloudSrc.default);
 
       const cloudIcon = L.divIcon({
-        html: thecloud, // this.cloudSvg, // thecloud,
+        html: this.cloudSrc.default, // thecloud, // this.cloudSvg, // thecloud,
         className: 'my-custom-icons',
         iconSize: [size, size],
         iconAnchor: [size/2, size/2]

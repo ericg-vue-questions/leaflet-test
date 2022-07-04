@@ -2,8 +2,6 @@
 <svg
    version="1.1"
    viewBox="0 0 200.45813 200.46126"
-   width="199.99919pt"
-   height="200.00232pt"
    id="svg117"
    sodipodi:docname="TheCloud.svg"
    inkscape:version="1.2 (dc2aeda, 2022-05-15)"
