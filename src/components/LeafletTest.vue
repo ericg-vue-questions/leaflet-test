@@ -23,7 +23,8 @@ export default {
 
   data() {
     return{
-      center: [37.781814, -122.404740]
+      center: [37.781814, -122.404740],
+      cloudSvg: require('./TheCloud.svg')
     }
   },
 
@@ -56,8 +57,10 @@ export default {
 
       const size = 50;
 
+      console.log( "icon", this.cloudSvg);
+
       const cloudIcon = L.divIcon({
-        html: thecloud,
+        html: thecloud, // this.cloudSvg, // thecloud,
         className: 'my-custom-icons',
         iconSize: [size, size],
         iconAnchor: [size/2, size/2]
