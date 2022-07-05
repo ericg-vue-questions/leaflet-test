@@ -1060,6 +1060,18 @@
   resolved "https://registry.yarnpkg.com/@soda/get-current-script/-/get-current-script-1.0.2.tgz#a53515db25d8038374381b73af20bb4f2e508d87"
   integrity sha512-T7VNNlYVM1SgQ+VsMYhnDkcGmWhQdL0bDyGm5TlQ3GBXnJscEClUUOKduWTmm2zCnvNLC1hc3JpuXjs/nFOc5w==
 
+"@terraformer/common@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/@terraformer/common/-/common-2.0.7.tgz#bec626f331b9f0cc3aefb16f9f88e2d3684107ff"
+  integrity sha512-8bl+/JT0Rw6FYe2H3FfJS8uQwgzGl+UHs+8JX0TQLHgA4sMDEwObbMwo0iP3FVONwPXrPHEpC5YH7Grve0cl9A==
+
+"@terraformer/spatial@^2.1.0":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@terraformer/spatial/-/spatial-2.1.1.tgz#8907aa2ecc6c740bfb0936a3dc59913824680267"
+  integrity sha512-WcDqlg4cZQVI448FAJ+IwTUsOPMXddOohyzpvcbKxBTr4zjAH82aF2aomCcbaghU7dawosfAvTgbB9m3lU28fg==
+  dependencies:
+    "@terraformer/common" "^2.0.7"
+
 "@types/body-parser@*":
   version "1.19.2"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.19.2.tgz#aea2059e28b7658639081347ac4fab3de166e6f0"
@@ -5244,6 +5256,13 @@ launch-editor@^2.2.1, launch-editor@^2.4.0:
   dependencies:
     picocolors "^1.0.0"
     shell-quote "^1.6.1"
+
+leaflet-lasso@^2.2.8:
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/leaflet-lasso/-/leaflet-lasso-2.2.8.tgz#93bc36f879cf73d9e8adab05796346668668e1ce"
+  integrity sha512-GEwmsYanCUWYUgOQlElRB1MBrLSfPsFlLBu2YL9DbMh9kkWDi1njU6HGfYQ82BMC1WBU589CXT9zReLXBDKNsA==
+  dependencies:
+    "@terraformer/spatial" "^2.1.0"
 
 leaflet-polylinedecorator@^1.6.0:
   version "1.6.0"
