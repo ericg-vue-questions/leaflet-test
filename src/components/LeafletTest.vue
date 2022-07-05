@@ -7,7 +7,7 @@
 <script>
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import {thecloud} from './TheCloud';
+import Vue from 'vue';
 
 //
 // obtain a mapbox token from https://account.mapbox.com/access-tokens/
@@ -24,13 +24,11 @@ export default {
   data() {
     return{
       center: [37.781814, -122.404740],
-      cloudSvg: require('./TheCloud.svg'),
-      //cloudSrc: require('./TheCloud.txt')
     }
   },
 
   methods: {
-    setupLeafletMap: function () {
+    async setupLeafletMap() {
       const mapDiv = L.map("mapContainer").setView(this.center, 13);
 
       L.tileLayer(
@@ -56,12 +54,14 @@ export default {
                         ]
                       }).addTo(mapDiv);
 
+      const response = await fetch( "/TheCloud.svg");
+      const source = await response.text();
+
+      console.log( "response", source );
       const size = 50;
 
-      console.log( "icon", this.cloudSvg);
-
       const cloudIcon = L.divIcon({
-        html: thecloud, // this.cloudSvg, // thecloud,
+        html: source,
         className: 'my-custom-icons',
         iconSize: [size, size],
         iconAnchor: [size/2, size/2]
@@ -74,8 +74,9 @@ export default {
     },
   },
 
-  mounted() {
-    this.setupLeafletMap();
+  async mounted() {
+    await Vue.nextTick();
+    await this.setupLeafletMap();
   },
 };
 </script>
@@ -85,10 +86,8 @@ export default {
     width: 500px;
     height: 500px;
   }
-</style>
 
-<style>
-  .my-custom-icons {
+  #mapContainer >>>  .my-custom-icons {
     background-color: red;
   }
 </style>
