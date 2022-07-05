@@ -1,6 +1,6 @@
 const thecloud = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   version="1.1"
+  version="1.1"
    viewBox="94 160 200 199.54211"
    id="svg117"
    sodipodi:docname="TheCloud.svg"

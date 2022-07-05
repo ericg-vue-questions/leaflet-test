@@ -1,7 +1,7 @@
 <template>
-  <div id="container">
-    <div id="mapContainer"></div>
-  </div>
+    <div id="container">
+        <div id="mapContainer"></div>
+    </div>
 </template>
 
 <script>
@@ -16,80 +16,78 @@ import L from "leaflet";
 //    const token = "<your token>";
 //    export { token };
 //
-import {token} from "./token.js";
+import { token } from "./token.js";
 
 export default {
-  name: "Map",
+    name: "Map",
 
-  data() {
-    return{
-      center: [37.781814, -122.404740],
-      cloudSvg: require('./TheCloud.svg'),
-      cloudSrc: require('./TheCloud.txt')
-    }
-  },
-
-  methods: {
-    setupLeafletMap: function () {
-      const mapDiv = L.map("mapContainer").setView(this.center, 13);
-
-      L.tileLayer(
-        `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${token}`,
-        {
-          attribution: 'Map data (c) <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-          maxZoom: 18,
-          id: "mapbox/streets-v11",
-          accessToken: `${token}`,
-        }
-      ).addTo(mapDiv);
-
-      const from = [37.781814, -122.404740];
-      const to = [37.80012, -122.404827];
-
-      var polylinePoints = [ from, to ];
-
-      var polyline = L.polyline(polylinePoints, {color: 'red'}).addTo(mapDiv);
-      var decorator = L.polylineDecorator(polyline, {
-                        patterns: [
-                          // defines a pattern of 10px-wide dashes, repeated every 20px on the line
-                          {offset: 0, repeat: 20, symbol: L.Symbol.dash({pixelSize: 10})}
-                        ]
-                      }).addTo(mapDiv);
-
-      const size = 50;
-
-      console.log( "icon svg", this.cloudSvg);
-      console.log( "icon src", this.cloudSrc.default);
-
-      const cloudIcon = L.divIcon({
-        html: this.cloudSrc.default, // thecloud, // this.cloudSvg, // thecloud,
-        className: 'my-custom-icons',
-        iconSize: [size, size],
-        iconAnchor: [size/2, size/2]
-      })
-
-      L.marker( from, { icon: cloudIcon} ).addTo( mapDiv );
-
-      console.log( polyline );
-      console.log( decorator );
+    data() {
+        return {
+            center: [37.781814, -122.40474],
+            cloudSvg: require("./TheCloud.svg"),
+            cloudSrc: require("./TheCloud.txt")
+        };
     },
-  },
 
-  mounted() {
-    this.setupLeafletMap();
-  },
+    methods: {
+        setupLeafletMap: function () {
+            const mapDiv = L.map("mapContainer").setView(this.center, 13);
+
+            L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${token}`, {
+                attribution:
+                    'Map data (c) <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: "mapbox/streets-v11",
+                accessToken: `${token}`
+            }).addTo(mapDiv);
+
+            const from = [37.781814, -122.40474];
+            const to = [37.80012, -122.404827];
+
+            var polylinePoints = [from, to];
+
+            var polyline = L.polyline(polylinePoints, { color: "red" }).addTo(mapDiv);
+            var decorator = L.polylineDecorator(polyline, {
+                patterns: [
+                    // defines a pattern of 10px-wide dashes, repeated every 20px on the line
+                    { offset: 0, repeat: 20, symbol: L.Symbol.dash({ pixelSize: 10 }) }
+                ]
+            }).addTo(mapDiv);
+
+            const size = 50;
+
+            console.log("icon svg", this.cloudSvg);
+            console.log("icon src", this.cloudSrc.default);
+
+            const cloudIcon = L.divIcon({
+                html: this.cloudSrc.default, // thecloud, // this.cloudSvg, // thecloud,
+                className: "my-custom-icons",
+                iconSize: [size, size],
+                iconAnchor: [size / 2, size / 2]
+            });
+
+            L.marker(from, { icon: cloudIcon }).addTo(mapDiv);
+
+            console.log(polyline);
+            console.log(decorator);
+        }
+    },
+
+    mounted() {
+        this.setupLeafletMap();
+    }
 };
 </script>
 
 <style scoped>
-  #mapContainer {
+#mapContainer {
     width: 500px;
     height: 500px;
-  }
+}
 </style>
 
 <style>
-  .my-custom-icons {
+.my-custom-icons {
     background-color: red;
-  }
+}
 </style>
