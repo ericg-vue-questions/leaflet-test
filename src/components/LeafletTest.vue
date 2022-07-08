@@ -54,20 +54,31 @@ export default {
                         ]
                       }).addTo(mapDiv);
 
-      const response = await fetch( "/TheCloud.svg");
-      const source = await response.text();
+      const cloudFetch = await fetch( "/TheCloud.svg");
+      const cloudSource = await cloudFetch.text();
 
-      console.log( "response", source );
-      const size = 50;
+      const size = 35;
 
       const cloudIcon = L.divIcon({
-        html: source,
+        html: cloudSource,
         className: 'my-custom-icons',
         iconSize: [size, size],
         iconAnchor: [size/2, size/2]
       })
 
       L.marker( from, { icon: cloudIcon} ).addTo( mapDiv );
+
+      const circleFetch = await fetch( "/circle.svg");
+      const circleSource = await circleFetch.text();
+
+      const circleIcon = L.divIcon({
+        html: circleSource,
+        className: 'my-custom-icons',
+        iconSize: [size, size],
+        iconAnchor: [size/2, size/2]
+      })
+
+      L.marker( to, { icon: circleIcon} ).addTo( mapDiv );
 
       console.log( polyline );
       console.log( decorator );
