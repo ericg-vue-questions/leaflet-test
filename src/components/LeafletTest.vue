@@ -33,7 +33,8 @@ export default {
                 onEachFeature: this.onEachFeature,
                 style: this.styleMap
             }).addTo(mapDiv);
-            /*const lassoControl = */ L.control.lasso({ intersect: true }).addTo(mapDiv);
+
+            L.control.lasso({ intersect: true }).addTo(mapDiv);
 
             mapDiv.on('mousedown', () => {
                 console.log('mousedown');
