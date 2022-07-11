@@ -8,66 +8,32 @@
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import Vue from 'vue';
-
-//
-// obtain a mapbox token from https://account.mapbox.com/access-tokens/
-// and then create token.js in ./src/components with the following content:
-//
-//    const token = "<your token>";
-//    export { token };
-//
-import { token } from './token.js';
+import data from './france.geo.json';
 
 export default {
     name: 'Map',
 
     data() {
         return {
-            center: [37.781814, -122.40474]
+            center: [46.2276, 2.2137]
         };
     },
 
     methods: {
         async setupLeafletMap() {
-            const mapDiv = L.map('mapContainer').setView(this.center, 13);
+            const mapDiv = L.map('mapContainer').setView(this.center, 4);
 
-            L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${token}`, {
-                attribution:
-                    'Map data (c) <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-                maxZoom: 18,
-                id: 'mapbox/streets-v11',
-                accessToken: `${token}`
+            var tiles = new L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                minZoom: 3,
+                maxZoom: 8
             }).addTo(mapDiv);
 
-            const from = [37.781814, -122.40474];
-            const to = [37.80012, -122.404827];
-
-            var polylinePoints = [from, to];
-
-            var polyline = L.polyline(polylinePoints, { color: 'red' }).addTo(mapDiv);
-            var decorator = L.polylineDecorator(polyline, {
-                patterns: [
-                    // defines a pattern of 10px-wide dashes, repeated every 20px on the line
-                    { offset: 0, repeat: 20, symbol: L.Symbol.dash({ pixelSize: 10 }) }
-                ]
+            L.geoJSON(data, {
+                onEachFeature: this.onEachFeature,
+                style: this.styleMap
             }).addTo(mapDiv);
-
-            const response = await fetch('/TheCloud.svg');
-            const source = await response.text();
-
-            console.log('response', source);
-            const size = 50;
-
-            const cloudIcon = L.divIcon({
-                html: source,
-                className: 'my-custom-icons',
-                iconSize: [size, size],
-                iconAnchor: [size / 2, size / 2]
-            });
-
-            L.marker(from, { icon: cloudIcon }).addTo(mapDiv);
-
-            /*const lassoControl = */ L.control.lasso().addTo(mapDiv);
+            /*const lassoControl = */ L.control.lasso({ intersect: true }).addTo(mapDiv);
 
             mapDiv.on('mousedown', () => {
                 console.log('mousedown');
@@ -84,9 +50,14 @@ export default {
             mapDiv.on('lasso.disabled', () => {
                 console.log('lasso.disabled');
             });
+        },
 
-            console.log(polyline);
-            console.log(decorator);
+        onEachFeature(feature, layer) {
+            console.log('onEachFeature', feature.properties.name_long);
+        },
+
+        styleMap() {
+            return { color: 'green', fillOpacity: 0 };
         },
 
         resetSelectedState() {
@@ -106,13 +77,11 @@ export default {
             console.log('setSelectedLayers', layers);
             this.resetSelectedState();
 
-            // layers.forEach((layer) => {
-            //     if (layer instanceof L.Marker && !(layer instanceof L.MarkerCluster)) {
-            //         layer.setIcon(new L.Icon.Default({ className: 'selected ' }));
-            //     } else if (layer instanceof L.Path) {
-            //         layer.setStyle({ color: '#ff4620' });
-            //     }
-            // });
+            layers.forEach((layer) => {
+                const name = layer.feature.properties.name_long;
+
+                console.log('setSelectedLayers', name);
+            });
 
             // lassoResult.innerHTML = layers.length ? `Selected ${layers.length} layers` : '';
         }
@@ -127,7 +96,7 @@ export default {
 
 <style scoped>
 #mapContainer {
-    width: 500px;
+    width: 1000px;
     height: 500px;
 }
 
