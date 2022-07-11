@@ -8,7 +8,7 @@
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import Vue from 'vue';
-import data from './france.geo.json';
+import data from './custom.geo.json';
 
 export default {
     name: 'Map',
